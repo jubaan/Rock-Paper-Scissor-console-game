@@ -1,0 +1,125 @@
+<script>
+  function game() {
+    // Variables
+    let playerSelection;
+    let computerSelection;
+    let choices = ["rock", "paper", "scissors", "NOT VALID"];
+    let playerScore = 0;
+    let computerScore = 0;
+
+    // Computer pick an option function
+    function computerPlay() {
+      let computerPick = Math.floor(Math.random() * (4 - 1) + 1);
+      switch (computerPick) {
+        case 1:
+          computerPick = "rock";
+          break;
+        case 2:
+          computerPick = "paper";
+          break;
+        case 3:
+          computerPick = "scissors";
+          break;
+      }
+      return computerPick;
+    }
+
+    // Global score record function
+    function globalScore(playerScore, computerScore) {
+      if (playerScore == computerScore) {
+        return `GAME OVER.... It's a draw, nobody wins. FINAL SCORE - Human: ${playerScore} - CPU: ${computerScore}`;
+      } else if (playerScore > computerScore) {
+        return `MASTER OF ROCK, PAPER, SCISSORS. ALL COMPUTERS SALUTE YOU!. FINAL SCORE Human: - ${playerScore} - CPU: ${computerScore}`;
+      } else {
+        return `YOU LOOOOOSER. PC MASTER RACE ALWAYS WIN!.... NEWBIE. FINAL SCORE Human: - ${playerScore} - CPU: ${computerScore}`;
+      }
+    }
+
+    //Game instructions
+    alert(
+      "Hello stranger... I challenge you to 5 rounds of Rock, Paper, Scissors match. The winner takes it all!"
+    );
+
+    // One round of main game
+    function playRound(playerSelection, computerSelection) {
+      /* Validation function that the user choice is correct, 
+    if it has orthographic errors or has written something
+    else besides the three options given (rock, paper or scissors)
+    is going to asign to 'playerSlection' a 'NOT VALID' choice so
+    he can choose again. */
+      function validation(playerSelection) {
+        if (choices.includes(playerSelection) === true) {
+          playerSelection;
+        } else if (playerSelection === "NOT VALID") {
+          playerSelection = prompt(
+            "Choice your weapon... Rock, Paper or Scissors"
+          ).toLowerCase();
+        } else {
+          alert(
+            "You didn't choose a valid option. Check you're writting it right."
+          );
+          playerSelection = "NOT VALID";
+          validation(playerSelection);
+          playRound(playerSelection, computerSelection);
+          i--;
+        }
+      }
+
+      validation(playerSelection);
+
+      if (playerSelection === computerSelection) {
+        return `Draw... really? a computer is better than you... Human: ${playerScore} - CPU: ${computerScore}`;
+      } else {
+        switch (playerSelection) {
+          case "rock":
+            if (computerPlay === "paper") {
+              ++computerScore;
+              console.log(
+                `You lose... You are not Master Race material. Human: ${playerScore} - CPU: ${computerScore}`
+              );
+            } else {
+              ++playerScore;
+              return `You Win... Maybe you have a chance. Human: ${playerScore} - CPU: ${computerScore}`;
+            }
+            break;
+
+          case "paper":
+            if (computerPlay === "scissors") {
+              ++computerScore;
+              return `You lose... You are not Master Race material. Human: ${playerScore} - CPU: ${computerScore}`;
+            } else {
+              ++playerScore;
+              return `You Win... Maybe you have a chance. Human: ${playerScore} - CPU: ${computerScore}`;
+            }
+            break;
+
+          case "scissors":
+            if (computerPlay === "rock") {
+              ++computerScore;
+              return `You lose... You are not Master Race material. CPU: ${computerScore} - Human: ${playerScore}`;
+            } else {
+              ++playerScore;
+              return `You Win... Maybe you have a chance. Human: ${playerScore} - CPU: ${computerScore}`;
+            }
+        }
+      }
+    }
+
+    // Five Game Rounds
+    for (i = 1; i <= 5; ++i) {
+      // Players selections
+      playerSelection = prompt(
+        "Choice your weapon... Rock, Paper or Scissors"
+      ).toLowerCase();
+      computerSelection = computerPlay();
+
+      // Single Round
+      console.log(playRound(playerSelection, computerSelection));
+    }
+
+    // Scores that will show when the 5 round game finish
+    console.log(globalScore(playerScore, computerScore));
+  }
+
+  game();
+</script>
